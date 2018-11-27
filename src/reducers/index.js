@@ -1,11 +1,10 @@
 import {combineReducers} from 'redux'
-import { reducer as reduxFormReducer } from 'redux-form';
 
 import counterApp from './counterApp';
+import board from './board';
 
 const rootReducer = combineReducers({
-  counterApp,
-  form: reduxFormReducer
+  board
 });
 
 export default rootReducer;
