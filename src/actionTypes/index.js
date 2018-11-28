@@ -8,6 +8,8 @@ export const INCREMENT_ASYNC = 'INCREMENT_ASYNC';
 
 export const RESET_COUNTER = 'RESET_COUNTER';
 
+export const RESET = 'RESET';
+
 export const PRESS_UP = 'PRESS_UP';
 
 export const PRESS_RIGHT = 'PRESS_RIGHT';

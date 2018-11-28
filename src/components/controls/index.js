@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux'
+
+import { RESET } from '../../actionTypes';
 
 const StyledControls = styled.div`
   display:block;
 `;
 
 class Controls extends Component {
+
+  reset = () => {
+    this.props.dispatch({ type: RESET });
+  }
+
   render() { 
-    let row = this.props.row;
     return ( 
       <StyledControls>
-        <button>Reset</button>
+        <button onClick={this.reset}>Reset</button>
       </StyledControls>
     );
   }
 }
- 
-export default Controls;
+
+//connects component with redux store state
+const mapStateToProps = state => ({ boardMatrix: state.board.boardMatrix })
+export default connect(mapStateToProps)(Controls);

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Board from './components/board';
+import Controls from './components/controls';
 
 class App extends Component {
   render() {
@@ -13,6 +14,7 @@ class App extends Component {
           <h1 className="App-title">Counter App with Redux !</h1>
         </header>
         <Board />
+        <Controls />
       </div>
     );
   }

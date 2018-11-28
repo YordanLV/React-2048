@@ -4,8 +4,8 @@ import styled from 'styled-components';
 const StyledCell = styled.div`
   display:flex;
   border: 1px solid black;
-  height: 50px;
-  width: 50px;
+  height: 10vw;
+  width: 10vw;
   align-items: center;
   justify-content: center;
   &.neon-2{
