@@ -8,7 +8,7 @@ function reset(matrix) {
 	[0, 0, 0, 0],
 	[0, 0, 0, 0],
 	[0, 0, 0, 0]]
-	return matrix;
+	return randomTile(randomTile(matrix));
 }
 
 // Get all blank coordinates from matrix
@@ -36,19 +36,16 @@ function randomTile(matrix) {
 	const emptySpaces = getEmptySpaces(matrix);
 	const randomCell = emptySpaces[Math.floor(Math.random() * emptySpaces.length)];
 	const randomNumber = randomTileNumber();
-	matrix[randomCell[0]][randomCell[1]] = randomNumber;
-	return matrix;
+	if(randomCell !== undefined){
+		matrix[randomCell[0]][randomCell[1]] = randomNumber;
+		return matrix;
+	}
+	return reset(matrix);
 }
-
-// // Compares two boards to check for movement
-// function boardMoved(original, updated) {
-// 	return (JSON.stringify(updated) !== JSON.stringify(original)) ? true : false;
-// }
 
 function moveUp(inputBoard) {
 	let rotatedRight = rotateRight(inputBoard);
 	let matrix = [];
-	let score = 0;
 
 	// Shift all numbers to the right
 	for (let r = 0; r < rotatedRight.length; r++) {
@@ -66,7 +63,7 @@ function moveUp(inputBoard) {
 			if (matrix[r][c] > 0 && matrix[r][c] === matrix[r][c - 1]) {
 				matrix[r][c] = matrix[r][c] * 2;
 				matrix[r][c - 1] = 0;
-				score += matrix[r][c];
+				//score += matrix[r][c];
 			} else if (matrix[r][c] === 0 && matrix[r][c - 1] > 0) {
 				matrix[r][c] = matrix[r][c - 1];
 				matrix[r][c - 1] = 0;

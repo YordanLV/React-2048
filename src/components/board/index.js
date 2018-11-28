@@ -1,22 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux'
+import theme from '../../theme';
 
 import Row from '../row';
-import {addMatrix} from '../../util';
 
 import { PRESS_UP, PRESS_RIGHT, PRESS_DOWN, PRESS_LEFT } from '../../actionTypes';
 import { FadeInUp, TiltUp, TiltRight, TiltDown, TiltLeft } from '../../animations';
+
+const {media, board} = theme;
 
 const body = document.querySelector('body');
 
 const BoardWrapper = styled.div`
   margin: 0 auto;
-  position: relative;
-  /* height: 200px;
-  width: 200px;
-  perspective: 200px; */
-  animation: ${FadeInUp} .5s ease-out;
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  height: ${board.size};
+  width: ${board.size};
+  perspective: 40vw; 
+  animation: ${FadeInUp} 1s cubic-bezier(.58,.09,.82,.93);
+
+  @media (${media.md}) {
+    height: ${board.sizeSm};
+    width: ${board.sizeSm};
+  }
 `;
 
 class Board extends React.Component {
@@ -64,7 +74,6 @@ class Board extends React.Component {
     const matrix = this.props.boardMatrix;
     return (
       <BoardWrapper>
-        <div>Score:NaN</div>
         <StyledBoard>
           {matrix.map((row, idx) => <Row key={idx} row={row} />)}
         </StyledBoard>

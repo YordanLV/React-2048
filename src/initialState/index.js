@@ -3,6 +3,7 @@ export const initialState = {
     boardMatrix: [[0, 0, 0, 0],
                   [0, 0, 0, 0], 
                   [0, 0, 0, 0], 
-                  [0, 0, 0, 0]]
+                  [0, 0, 0, 0],
+                ]
 }
 

@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 import { RESET } from '../../actionTypes';
 
 const StyledControls = styled.div`
+  bottom:10px;
+  position: fixed;
   display:block;
 `;
 

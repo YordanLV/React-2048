@@ -1,0 +1,18 @@
+{
+  "media":{
+    "sm":"max-width: 768px",
+    "md":"max-width: 1024px",
+    "lg":"max-width: 1200px"
+  },
+  "board":{
+    "size": "30vw",
+    "sizeSm":"60vw"
+  },
+  "cell":{
+    "size": "7.5vw",
+    "sizeSm":"15vw",
+    "border": "0.5vw",
+    "fontSize": "2.5vw",
+    "fontSizeSm": "5vw"
+  }
+}

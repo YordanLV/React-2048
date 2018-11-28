@@ -5,6 +5,7 @@ import Cell from '../cell';
 
 const StyledRow = styled.div`
   display:flex;
+  background-color: rgba(0, 0, 0, 0.4); 
 `;
 
 class Row extends Component {

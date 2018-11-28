@@ -5,11 +5,11 @@ const tiltDeg = 20;
 export const FadeInUp = keyframes`
   0% {
     opacity: 0;
-    transform: translate3d(0, 100%, 0);
+    transform: translate(-50%, 250%);
   }
   100% {
     opacity: 100%;
-    transform: translate3d(0, 0%, 0);
+    transform: translate(-50%, -50%);
   }
 `;
 
