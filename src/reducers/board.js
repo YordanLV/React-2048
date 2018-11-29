@@ -1,7 +1,10 @@
 import { initialState } from '../initialState';
-import { PRESS_UP, PRESS_DOWN, PRESS_LEFT, PRESS_RIGHT, RESET } from '../actionTypes';
-import { rotateRight, rotateLeft, shiftRigh } from '../util';
+import { INIT, RESET, PRESS_UP, PRESS_DOWN, PRESS_LEFT, PRESS_RIGHT } from '../actionTypes';
+import { findMaxVal, rotateRight, rotateLeft, shiftRigh } from '../util';
 
+function init(matrix){
+	return randomTile(randomTile(matrix));
+}
 function reset(matrix) {
 	matrix = [
 	[0, 0, 0, 0],
@@ -40,6 +43,7 @@ function randomTile(matrix) {
 		matrix[randomCell[0]][randomCell[1]] = randomNumber;
 		return matrix;
 	}
+	alert('Game Over, Bitch');
 	return reset(matrix);
 }
 
@@ -166,24 +170,38 @@ function moveLeft(inputMatrix) {
 	return matrix;
 }
 
+function checkIfWinner(matrix){
+	if(findMaxVal(matrix) === 32){
+		console.log('win');
+	}
+}
+
 function triggerUp(boardMatrix){
+	checkIfWinner(boardMatrix);
 	return randomTile(moveUp(boardMatrix));
 }
 function triggerRight(boardMatrix){
+	checkIfWinner(boardMatrix);
 	return randomTile(moveRight(boardMatrix));
 }
 
 function triggerDown(boardMatrix){
+	checkIfWinner(boardMatrix);
 	return randomTile(moveDown(boardMatrix));
 }
 
 function triggerLeft(boardMatrix){
+	checkIfWinner(boardMatrix);
 	return randomTile(moveLeft(boardMatrix));
 }
 
 
 function matrix(state = initialState, action) {
 	switch (action.type) {
+		case INIT:
+			return {
+				boardMatrix: init(state.boardMatrix)
+			};
 		case PRESS_UP:
 			return {
 				boardMatrix: triggerUp(state.boardMatrix)
@@ -202,11 +220,11 @@ function matrix(state = initialState, action) {
 			};
 		case RESET:
 			return {
-				boardMatrix: randomTile(state.boardMatrix)
+				boardMatrix: reset(state.boardMatrix)
 			}
 		default:
 			return {
-				boardMatrix: randomTile(state.boardMatrix)
+				boardMatrix: state.boardMatrix
 			}
 	}
 }

@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import theme from '../../theme';
 
-const {media,cell} = theme;
+const { media, cell } = theme;
 
 const StyledCell = styled.div`
   display:flex;
@@ -24,6 +24,12 @@ const StyledCell = styled.div`
     display: block;
     width: 100%;
     height: 100%;
+  }
+  &[class^="neon-"]{
+    background-color: #000000;
+  }
+  &.neon-0{
+    background-color: transparent;
   }
   &.neon-2{
     background-color: #ff31f7;
@@ -52,6 +58,12 @@ const StyledCell = styled.div`
   &.neon-512{
     background-color: #fe0275;
   }
+  &.neon-1024{
+    background-color: #7f013a;
+  }
+  &.neon-2048{
+    background-color: #320017;
+  }
 `;
 
 const Num = styled.span`
@@ -62,15 +74,10 @@ const Num = styled.span`
   }
 `;
 
-class Cell extends Component {
-  render() { 
-    let { val } = this.props
-    return ( 
-      <StyledCell className={`neon-${val}`}>
-        <div>{val ? <Num>{val}</Num> : ''}</div>
-      </StyledCell>
-    );
-  }
-}
- 
-export default Cell;
+const Cell = ({val}) => (
+  <StyledCell className={`neon-${val}`}>
+    <div>{val ? <Num>{val}</Num> : ''}</div>
+  </StyledCell>
+);
+
+export default React.memo(Cell);

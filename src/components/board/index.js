@@ -1,5 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
+import Swipe from 'react-swipe-component';
+import styled, { createGlobalStyle } from 'styled-components';
 import { connect } from 'react-redux'
 import theme from '../../theme';
 
@@ -8,10 +9,18 @@ import Row from '../row';
 import { PRESS_UP, PRESS_RIGHT, PRESS_DOWN, PRESS_LEFT } from '../../actionTypes';
 import { FadeInUp, TiltUp, TiltRight, TiltDown, TiltLeft } from '../../animations';
 
-const {media, board} = theme;
+const { media, board } = theme;
 
 const body = document.querySelector('body');
 
+const BodyStyle = createGlobalStyle`
+  body {
+    @media (${media.md}) {
+      overflow-x: hidden;
+      overflow-y: hidden;
+    }
+  }
+`;
 const BoardWrapper = styled.div`
   margin: 0 auto;
   position: absolute;
@@ -33,6 +42,12 @@ class Board extends React.Component {
   constructor(props) {
     super(props);
     this.state = { tilt: '' };
+    //this.onSwipeEnd = this._onSwipeEnd.bind(this)
+    this.onSwipeLeftListener = this._onSwipeLeftListener.bind(this)
+    this.onSwipeRightListener = this._onSwipeRightListener.bind(this)
+    this.onSwipeDownListener = this._onSwipeUpListener.bind(this)
+    this.onSwipeUpListener = this._onSwipeDownListener.bind(this)
+    this.onSwipeListener = this._onSwipeListener.bind(this)
   }
 
   componentDidMount() {
@@ -47,24 +62,50 @@ class Board extends React.Component {
     switch (event.keyCode) {
       case 38:
         this.setState({ tilt: TiltUp });
-        this.props.dispatch({ type: PRESS_UP })
+        this.props.dispatch({ type: PRESS_UP });
         break;
       case 39:
         this.setState({ tilt: TiltRight });
-        this.props.dispatch({ type: PRESS_RIGHT })
+        this.props.dispatch({ type: PRESS_RIGHT });
         break;
       case 40:
         this.setState({ tilt: TiltDown });
-        this.props.dispatch({ type: PRESS_DOWN })
+        this.props.dispatch({ type: PRESS_DOWN });
         break;
       case 37:
         this.setState({ tilt: TiltLeft });
-        this.props.dispatch({ type: PRESS_LEFT })
+        this.props.dispatch({ type: PRESS_LEFT });
         break;
       default:
         break;
     }
   }
+  
+  // Mobile Swiping Functionality 
+  _onSwipeUpListener() {
+    this.setState({ tilt: TiltDown });
+    this.props.dispatch({ type: PRESS_DOWN });
+  }
+
+  _onSwipeRightListener() {
+    this.setState({ tilt: TiltRight });
+    this.props.dispatch({ type: PRESS_RIGHT });
+  }
+
+  _onSwipeDownListener() {
+    this.setState({ tilt: TiltUp });
+    this.props.dispatch({ type: PRESS_UP });
+  }
+
+  _onSwipeLeftListener() {
+    this.setState({ tilt: TiltLeft });
+    this.props.dispatch({ type: PRESS_LEFT });
+  }
+
+  _onSwipeListener(e) {
+
+  }
+
   render() {
     const StyledBoard = styled.div`
       position: absolute;
@@ -74,9 +115,21 @@ class Board extends React.Component {
     const matrix = this.props.boardMatrix;
     return (
       <BoardWrapper>
-        <StyledBoard>
-          {matrix.map((row, idx) => <Row key={idx} row={row} />)}
-        </StyledBoard>
+        <BodyStyle/>
+        <Swipe
+          nodeName="div"
+          className="test"
+          mouseSwipe={false}
+          onSwipeEnd={this.onSwipeEnd}
+          onSwipedLeft={this.onSwipeLeftListener}
+          onSwipedRight={this.onSwipeRightListener}
+          onSwipedDown={this.onSwipeDownListener}
+          onSwipedUp={this.onSwipeUpListener}
+          onSwipe={this.onSwipeListener}>
+          <StyledBoard>
+            {matrix.map((row, idx) => <Row key={idx} row={row} />)}
+          </StyledBoard>
+        </Swipe>
       </BoardWrapper>
     );
   }
