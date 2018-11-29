@@ -1,7 +1,6 @@
 export function findMaxVal(matrix) {
 	const maxRow = matrix.map(function(row){ return Math.max.apply(Math, row); });
 	const maxNum = Math.max.apply(null, maxRow);
-	console.log(maxNum);
 	return maxNum;
 }
 

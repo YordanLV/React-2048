@@ -1,10 +1,20 @@
 import { initialState } from '../initialState';
 import { INIT, RESET, PRESS_UP, PRESS_DOWN, PRESS_LEFT, PRESS_RIGHT } from '../actionTypes';
-import { findMaxVal, rotateRight, rotateLeft, shiftRigh } from '../util';
+import { findMaxVal, rotateRight, rotateLeft } from '../util';
 
-function init(matrix){
-	return randomTile(randomTile(matrix));
+let score = 0;
+
+function init(numberCells){
+	const repeat = (fn, n) => Array(n).fill(0).map(fn);
+	const rand = () => 0;
+	const puzzle = n => repeat(() => repeat(rand, n), n);
+	return puzzle(numberCells);
 }
+
+function initScore(){
+	score = 0;
+}
+
 function reset(matrix) {
 	matrix = [
 	[0, 0, 0, 0],
@@ -14,7 +24,24 @@ function reset(matrix) {
 	return randomTile(randomTile(matrix));
 }
 
-// Get all blank coordinates from matrix
+// function setCustomMatrix(matrix, customSize = 4){
+// 	let r = 3;
+// 	let rows = 5;
+// 	let cols = 5;
+// 	for( let i=r; i<rows; i++ ) {
+// 		matrix.push( [] );
+// 	}
+// 	for (let i = 0; i < rows; i++)
+// 	{
+// 			for (let j =  matrix[i].length; j < cols; j++)
+// 			{
+// 					matrix[i].push(0);
+// 			}
+// 	}
+	
+// 	return matrix;
+// }
+
 function getEmptySpaces(matrix) {
 	const emptySpaces = [];
 	for (let r = 0; r < matrix.length; r++) {
@@ -27,14 +54,13 @@ function getEmptySpaces(matrix) {
 	return emptySpaces;
 }
 
-// Grab random start number
+
 function randomTileNumber() {
 	const numbers = [2, 4];
 	const randomNumber = numbers[Math.floor(Math.random() * numbers.length)];
 	return randomNumber;
 }
 
-// Place a random number on the matrix
 function randomTile(matrix) {
 	const emptySpaces = getEmptySpaces(matrix);
 	const randomCell = emptySpaces[Math.floor(Math.random() * emptySpaces.length)];
@@ -44,6 +70,7 @@ function randomTile(matrix) {
 		return matrix;
 	}
 	alert('Game Over, Bitch');
+	initScore();
 	return reset(matrix);
 }
 
@@ -51,7 +78,7 @@ function moveUp(inputBoard) {
 	let rotatedRight = rotateRight(inputBoard);
 	let matrix = [];
 
-	// Shift all numbers to the right
+
 	for (let r = 0; r < rotatedRight.length; r++) {
 		let row = [];
 		for (let c = 0; c < rotatedRight[r].length; c++) {
@@ -61,13 +88,13 @@ function moveUp(inputBoard) {
 		matrix.push(row);
 	}
 
-	// Combine numbers and shift to right
+
 	for (let r = 0; r < matrix.length; r++) {
 		for (let c = matrix[r].length - 1; c >= 0; c--) {
 			if (matrix[r][c] > 0 && matrix[r][c] === matrix[r][c - 1]) {
 				matrix[r][c] = matrix[r][c] * 2;
 				matrix[r][c - 1] = 0;
-				//score += matrix[r][c];
+				score += matrix[r][c];
 			} else if (matrix[r][c] === 0 && matrix[r][c - 1] > 0) {
 				matrix[r][c] = matrix[r][c - 1];
 				matrix[r][c - 1] = 0;
@@ -75,7 +102,6 @@ function moveUp(inputBoard) {
 		}
 	}
 
-	// Rotate matrix back upright
 	matrix = rotateLeft(matrix);
 
 	return matrix;
@@ -83,7 +109,6 @@ function moveUp(inputBoard) {
 
 function moveRight(inputMatrix) {
 	let matrix = [];
-    // Shift all numbers to the right
     for (let r = 0; r < inputMatrix.length; r++) {
       let row = [];      
       for (let c = 0; c < inputMatrix[r].length; c++) {
@@ -98,7 +123,8 @@ function moveRight(inputMatrix) {
       for (let c = matrix[r].length - 1; c >= 0; c--) {
         if (matrix[r][c] > 0 && matrix[r][c] === matrix[r][c - 1]) {
           matrix[r][c] = matrix[r][c] * 2;
-          matrix[r][c - 1] = 0;
+					matrix[r][c - 1] = 0;
+					score += matrix[r][c];
         } else if (matrix[r][c] === 0 && matrix[r][c - 1] > 0) {
           matrix[r][c] = matrix[r][c - 1];
           matrix[r][c - 1] = 0;
@@ -111,9 +137,8 @@ function moveRight(inputMatrix) {
 
 function moveDown(inputMatrix) {
 	let rotatedRight = rotateRight(inputMatrix);
-    let matrix = [];
-    //let score = 0;
-
+		let matrix = [];
+		
     for (let r = 0; r < rotatedRight.length; r++) {
       let row = [];      
       for (let c = rotatedRight[r].length - 1; c >= 0; c--) {
@@ -128,7 +153,7 @@ function moveDown(inputMatrix) {
         if (matrix[r][c] > 0 && matrix[r][c] === matrix[r][c + 1]) {
           matrix[r][c] = matrix[r][c] * 2;
           matrix[r][c + 1] = 0;
-          //score += matrix[r][c];
+          score += matrix[r][c];
         } else if (matrix[r][c] === 0 && matrix[r][c + 1] > 0) {
           matrix[r][c] = matrix[r][c + 1];
           matrix[r][c + 1] = 0;
@@ -160,6 +185,7 @@ function moveLeft(inputMatrix) {
 			if (matrix[r][c] > 0 && matrix[r][c] === matrix[r][c + 1]) {
 				matrix[r][c] = matrix[r][c] * 2;
 				matrix[r][c + 1] = 0;
+				score += matrix[r][c];
 			} else if (matrix[r][c] === 0 && matrix[r][c + 1] > 0) {
 				matrix[r][c] = matrix[r][c + 1];
 				matrix[r][c + 1] = 0;
@@ -169,11 +195,8 @@ function moveLeft(inputMatrix) {
 	
 	return matrix;
 }
-
 function checkIfWinner(matrix){
-	if(findMaxVal(matrix) === 32){
-		console.log('win');
-	}
+	return ((findMaxVal(matrix) >= 2048) ? true : false);
 }
 
 function triggerUp(boardMatrix){
@@ -200,31 +223,43 @@ function matrix(state = initialState, action) {
 	switch (action.type) {
 		case INIT:
 			return {
-				boardMatrix: init(state.boardMatrix)
+				boardMatrix: init(state.boardMatrix),
+				score: score
 			};
 		case PRESS_UP:
 			return {
-				boardMatrix: triggerUp(state.boardMatrix)
+				isWinner: checkIfWinner(state.boardMatrix),
+				boardMatrix: triggerUp(state.boardMatrix),
+				score: score
 			};
 		case PRESS_RIGHT:
 			return {
-				boardMatrix: triggerRight(state.boardMatrix)
+				isWinner: checkIfWinner(state.boardMatrix),
+				boardMatrix: triggerRight(state.boardMatrix),
+				score: score
 			};
 		case PRESS_DOWN:
 			return {
-				boardMatrix: triggerDown(state.boardMatrix)
+				isWinner: checkIfWinner(state.boardMatrix),
+				boardMatrix: triggerDown(state.boardMatrix),
+				score: score
 			};
 		case PRESS_LEFT:
 			return {
-				boardMatrix: triggerLeft(state.boardMatrix)
+				isWinner: checkIfWinner(state.boardMatrix),
+				boardMatrix: triggerLeft(state.boardMatrix),
+				score: score
 			};
 		case RESET:
+			initScore();
 			return {
-				boardMatrix: reset(state.boardMatrix)
+				boardMatrix: reset(state.boardMatrix),
+				score: 0,
 			}
 		default:
 			return {
-				boardMatrix: state.boardMatrix
+				boardMatrix: init(2),
+				score: state.score
 			}
 	}
 }

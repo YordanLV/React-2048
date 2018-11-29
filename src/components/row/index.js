@@ -11,7 +11,7 @@ const StyledRow = styled.div`
 
 const Row = ({ row }) => (
   <StyledRow>
-    {row.map((val, idx) => <Cell key={idx} val={val} />)}
+    {row.map((val, id) => <Cell key={id} val={val} />)}
   </StyledRow>
 );
 

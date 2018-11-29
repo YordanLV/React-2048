@@ -1,5 +1,6 @@
 export const initialState = {
-    counter: 15,
+    score: 0,
+    isWinner: false,
     boardMatrix: [
       [0, 0, 0, 0],
       [0, 0, 0, 0],

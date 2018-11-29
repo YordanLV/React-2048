@@ -127,7 +127,7 @@ class Board extends React.Component {
           onSwipedUp={this.onSwipeUpListener}
           onSwipe={this.onSwipeListener}>
           <StyledBoard>
-            {matrix.map((row, idx) => <Row key={idx} row={row} />)}
+            {matrix.map((row, id) => <Row key={id} row={row} />)}
           </StyledBoard>
         </Swipe>
       </BoardWrapper>
@@ -135,6 +135,5 @@ class Board extends React.Component {
   }
 }
 
-//connects component with redux store state
 const mapStateToProps = state => ({ boardMatrix: state.board.boardMatrix })
 export default connect(mapStateToProps)(Board);
