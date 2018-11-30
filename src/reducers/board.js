@@ -4,24 +4,15 @@ import { findMaxVal, rotateRight, rotateLeft } from '../util';
 
 let score = 0;
 
-function init(numberCells){
+function init(numberCells = 4){
 	const repeat = (fn, n) => Array(n).fill(0).map(fn);
 	const fill = () => 0;
 	const customMatrix = n => repeat(() => repeat(fill, n), n);
-	return customMatrix(numberCells);
+	return randomTile(randomTile(customMatrix(numberCells)));
 }
 
 function initScore(){
 	score = 0;
-}
-
-function reset(matrix) {
-	matrix = [
-	[0, 0, 0, 0],
-	[0, 0, 0, 0],
-	[0, 0, 0, 0],
-	[0, 0, 0, 0]]
-	return randomTile(randomTile(matrix));
 }
 
 function getEmptySpaces(matrix) {
@@ -32,7 +23,6 @@ function getEmptySpaces(matrix) {
 			 }
 		}
 	}
-
 	return emptySpaces;
 }
 
@@ -53,13 +43,12 @@ function randomTile(matrix) {
 	}
 	alert('Game Over, Bitch!');
 	initScore();
-	return reset(matrix);
+	return init();
 }
 
 function moveUp(inputBoard) {
 	let rotatedRight = rotateRight(inputBoard);
 	let matrix = [];
-
 
 	for (let r = 0; r < rotatedRight.length; r++) {
 		let row = [];
@@ -203,11 +192,6 @@ function triggerLeft(boardMatrix){
 
 function matrix(state = initialState, action) {
 	switch (action.type) {
-		case INIT:
-			return {
-				boardMatrix: init(state.boardMatrix),
-				score: score
-			};
 		case PRESS_UP:
 			return {
 				isWinner: checkIfWinner(state.boardMatrix),
@@ -235,7 +219,7 @@ function matrix(state = initialState, action) {
 		case RESET:
 			initScore();
 			return {
-				boardMatrix: reset(state.boardMatrix),
+				boardMatrix: init(),
 				score: 0,
 			}
 		default:
