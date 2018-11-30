@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 const StyledScored = styled.div`
-  position:absolute;
-  top:1rem;
-  left:1rem;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
   font-family: 'Orbitron', sans-serif;
   color: white;
-  font-size:1.6rem;
+  font-size: 1.6rem;
 `;
 
 const Score = ({ score }) => (
@@ -18,4 +18,4 @@ const Score = ({ score }) => (
 );
 
 const mapStateToProps = state => ({ score: state.board.score })
-export default connect(mapStateToProps)(Score);
+export default React.memo(connect(mapStateToProps)(Score));

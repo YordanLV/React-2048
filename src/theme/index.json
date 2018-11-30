@@ -5,11 +5,11 @@
     "lg":"max-width: 1200px"
   },
   "board":{
-    "size": "30vw",
+    "size": "36vw",
     "sizeSm":"60vw"
   },
   "cell":{
-    "size": "7.5vw",
+    "size": "8vw",
     "sizeSm":"15vw",
     "border": "0.5vw",
     "fontSize": "2.5vw",

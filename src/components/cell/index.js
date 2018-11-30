@@ -74,7 +74,7 @@ const Num = styled.span`
   }
 `;
 
-const Cell = ({val}) => (
+const Cell = ({ val }) => (
   <StyledCell className={`neon-${val}`}>
     <div>{val ? <Num>{val}</Num> : ''}</div>
   </StyledCell>

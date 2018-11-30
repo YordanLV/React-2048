@@ -5,7 +5,7 @@ import { uid } from 'react-uid';
 import Cell from '../cell';
 
 const StyledRow = styled.div`
-  display:flex;
+  display: flex;
   background-color: rgba(0, 0, 0, 0.4); 
 `;
 

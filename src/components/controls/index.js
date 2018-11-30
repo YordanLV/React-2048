@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux'
+
+import Button from '../button';
 
 import { RESET } from '../../actionTypes';
 
@@ -9,22 +11,9 @@ const StyledControls = styled.div`
   left: 1rem;
   position: fixed;
   display: block;
-  button{
-    font-size: 1.6rem;
-    padding: 1rem 2rem;
-    border: .5rem solid #ba37f5;
-    background-color: rgba(186, 55, 245, .3);
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 600;
-    color: white;
-    cursor: pointer;
-    &:hover{
-      background-color: rgba(186, 55, 245, .9);
-    }
-  }
 `;
 
-class Controls extends Component {
+class Controls extends PureComponent {
 
   reset = () => {
     this.props.dispatch({ type: RESET });
@@ -33,7 +22,7 @@ class Controls extends Component {
   render() {
     return (
       <StyledControls>
-        <button onClick={this.reset}>Reset</button>
+        <Button onClick={this.reset} label="Reset" />
       </StyledControls>
     );
   }

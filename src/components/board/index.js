@@ -118,7 +118,6 @@ class Board extends React.Component {
         <BodyStyle/>
         <Swipe
           nodeName="div"
-          className="test"
           mouseSwipe={false}
           onSwipeEnd={this.onSwipeEnd}
           onSwipedLeft={this.onSwipeLeftListener}
