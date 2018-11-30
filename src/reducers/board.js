@@ -6,9 +6,9 @@ let score = 0;
 
 function init(numberCells){
 	const repeat = (fn, n) => Array(n).fill(0).map(fn);
-	const rand = () => 0;
-	const puzzle = n => repeat(() => repeat(rand, n), n);
-	return puzzle(numberCells);
+	const fill = () => 0;
+	const customMatrix = n => repeat(() => repeat(fill, n), n);
+	return customMatrix(numberCells);
 }
 
 function initScore(){
@@ -23,24 +23,6 @@ function reset(matrix) {
 	[0, 0, 0, 0]]
 	return randomTile(randomTile(matrix));
 }
-
-// function setCustomMatrix(matrix, customSize = 4){
-// 	let r = 3;
-// 	let rows = 5;
-// 	let cols = 5;
-// 	for( let i=r; i<rows; i++ ) {
-// 		matrix.push( [] );
-// 	}
-// 	for (let i = 0; i < rows; i++)
-// 	{
-// 			for (let j =  matrix[i].length; j < cols; j++)
-// 			{
-// 					matrix[i].push(0);
-// 			}
-// 	}
-	
-// 	return matrix;
-// }
 
 function getEmptySpaces(matrix) {
 	const emptySpaces = [];
@@ -69,7 +51,7 @@ function randomTile(matrix) {
 		matrix[randomCell[0]][randomCell[1]] = randomNumber;
 		return matrix;
 	}
-	alert('Game Over, Bitch');
+	alert('Game Over, Bitch!');
 	initScore();
 	return reset(matrix);
 }
@@ -258,7 +240,7 @@ function matrix(state = initialState, action) {
 			}
 		default:
 			return {
-				boardMatrix: init(2),
+				boardMatrix: init(4),
 				score: state.score
 			}
 	}
