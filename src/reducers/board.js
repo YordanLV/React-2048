@@ -41,7 +41,7 @@ function randomTile(matrix) {
 		matrix[randomCell[0]][randomCell[1]] = randomNumber;
 		return matrix;
 	}
-	alert('Game Over, Noob!');
+	alert('Game Over, Newb!');
 	initScore();
 	return init();
 }
@@ -105,7 +105,6 @@ function moveRight(inputMatrix) {
 function moveDown(inputMatrix) {
 	let rotatedRight = rotateRight(inputMatrix);
 	let matrix = [];
-
 	for (let rows = 0; rows < rotatedRight.length; rows++) {
 		let row = [];
 		for (let cols = rotatedRight[rows].length - 1; cols >= 0; cols--) {

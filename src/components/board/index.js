@@ -4,9 +4,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import { connect } from 'react-redux'
 import { uid } from 'react-uid';
 import theme from '../../theme';
-
 import Row from '../row';
-
 import { PRESS_UP, PRESS_RIGHT, PRESS_DOWN, PRESS_LEFT } from '../../actionTypes';
 import { FadeInUp, TiltUp, TiltRight, TiltDown, TiltLeft } from '../../animations';
 

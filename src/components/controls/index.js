@@ -1,9 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux'
-
 import Button from '../button';
-
 import { RESET } from '../../actionTypes';
 
 const StyledControls = styled.div`

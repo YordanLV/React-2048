@@ -4,10 +4,6 @@ export function findMaxVal(matrix) {
 	return maxNum;
 }
 
-export function isObjEqual(preObj, obj) {
-  return JSON.stringify(preObj) === JSON.stringify(obj);
-}
-
 export function rotateRight(matrix) {
 	let result = [];
 
@@ -18,7 +14,6 @@ export function rotateRight(matrix) {
 		}
 		result.push(row);
 	}
-
 	return result;
 }
 
@@ -32,17 +27,5 @@ export function rotateLeft(matrix) {
     }
     result.push(row);
   }
-
   return result;
-}
-
-export function shiftRigh(matrix){
-  for (let rows = 0; rows < matrix.length; rows++) {
-		let row = [];
-		for (let cols = 0; cols < matrix[rows].length; cols++) {
-			let current = matrix[rows][cols];
-			(current === 0) ? row.unshift(current) : row.push(current);
-		}
-	return matrix.push(row);
-	}
 }

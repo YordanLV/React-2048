@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import './App.css';
 import WinnerMessage from './components/winnerMessage';
 import Score from './components/score';
