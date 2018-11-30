@@ -11,10 +11,10 @@ export function isObjEqual(preObj, obj) {
 export function rotateRight(matrix) {
 	let result = [];
 
-	for (let c = 0; c < matrix.length; c++) {
+	for (let cols = 0; cols < matrix.length; cols++) {
 		let row = [];
-		for (let r = matrix.length - 1; r >= 0; r--) {
-			row.push(matrix[r][c]);
+		for (let rows = matrix.length - 1; rows >= 0; rows--) {
+			row.push(matrix[rows][cols]);
 		}
 		result.push(row);
 	}
@@ -25,10 +25,10 @@ export function rotateRight(matrix) {
 export function rotateLeft(matrix) {
   let result = [];
 
-  for (let c = matrix.length - 1; c >= 0; c--) {
+  for (let cols = matrix.length - 1; cols >= 0; cols--) {
     let row = [];
-    for (let r = matrix.length - 1; r >= 0; r--) {
-      row.unshift(matrix[r][c]);
+    for (let rows = matrix.length - 1; rows >= 0; rows--) {
+      row.unshift(matrix[rows][cols]);
     }
     result.push(row);
   }
@@ -37,10 +37,10 @@ export function rotateLeft(matrix) {
 }
 
 export function shiftRigh(matrix){
-  for (let r = 0; r < matrix.length; r++) {
+  for (let rows = 0; rows < matrix.length; rows++) {
 		let row = [];
-		for (let c = 0; c < matrix[r].length; c++) {
-			let current = matrix[r][c];
+		for (let cols = 0; cols < matrix[rows].length; cols++) {
+			let current = matrix[rows][cols];
 			(current === 0) ? row.unshift(current) : row.push(current);
 		}
 	return matrix.push(row);

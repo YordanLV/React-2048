@@ -5,21 +5,22 @@ import { connect } from 'react-redux'
 import { RESET } from '../../actionTypes';
 
 const StyledControls = styled.div`
-  bottom:10px;
-  left:10px;
+  bottom: 1rem;
+  left: 1rem;
   position: fixed;
-  display:block;
+  display: block;
   button{
-    padding:10px 20px;
-    border: 5px solid #ba37f5;
+    font-size: 1.6rem;
+    padding: 1rem 2rem;
+    border: .5rem solid #ba37f5;
     background-color: rgba(186, 55, 245, .3);
     font-family: 'Orbitron', sans-serif;
     font-weight: 600;
     color: white;
     cursor: pointer;
-  &:hover{
-    background-color: rgba(186, 55, 245, .9);
-  }
+    &:hover{
+      background-color: rgba(186, 55, 245, .9);
+    }
   }
 `;
 
@@ -29,8 +30,8 @@ class Controls extends Component {
     this.props.dispatch({ type: RESET });
   }
 
-  render() { 
-    return ( 
+  render() {
+    return (
       <StyledControls>
         <button onClick={this.reset}>Reset</button>
       </StyledControls>
@@ -38,6 +39,5 @@ class Controls extends Component {
   }
 }
 
-//connects component with redux store state
 const mapStateToProps = state => ({ boardMatrix: state.board.boardMatrix })
 export default connect(mapStateToProps)(Controls);

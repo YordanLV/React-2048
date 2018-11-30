@@ -7,9 +7,11 @@
     "@clarketm/saga-monitor": "^1.0.8",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-key-index": "^0.1.1",
     "react-redux": "^5.0.7",
     "react-scripts": "2.1.1",
     "react-swipe-component": "^2.1.0",
+    "react-uid": "^2.2.0",
     "redux": "^4.0.1",
     "redux-saga": "^0.16.2",
     "styled-components": "^4.1.1"

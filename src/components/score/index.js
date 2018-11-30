@@ -4,11 +4,11 @@ import styled from 'styled-components';
 
 const StyledScored = styled.div`
   position:absolute;
-  top:10px;
-  left:10px;
+  top:1rem;
+  left:1rem;
   font-family: 'Orbitron', sans-serif;
   color: white;
-  font-size:16px;
+  font-size:1.6rem;
 `;
 
 const Score = ({ score }) => (

@@ -9,6 +9,3 @@ export const PRESS_RIGHT = 'PRESS_RIGHT';
 export const PRESS_DOWN = 'PRESS_DOWN';
 
 export const PRESS_LEFT = 'PRESS_LEFT';
-
-
-//actions describe what happened

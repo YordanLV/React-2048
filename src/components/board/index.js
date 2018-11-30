@@ -2,6 +2,7 @@ import React from 'react';
 import Swipe from 'react-swipe-component';
 import styled, { createGlobalStyle } from 'styled-components';
 import { connect } from 'react-redux'
+import { uid } from 'react-uid';
 import theme from '../../theme';
 
 import Row from '../row';
@@ -42,7 +43,6 @@ class Board extends React.Component {
   constructor(props) {
     super(props);
     this.state = { tilt: '' };
-    //this.onSwipeEnd = this._onSwipeEnd.bind(this)
     this.onSwipeLeftListener = this._onSwipeLeftListener.bind(this)
     this.onSwipeRightListener = this._onSwipeRightListener.bind(this)
     this.onSwipeDownListener = this._onSwipeUpListener.bind(this)
@@ -127,7 +127,7 @@ class Board extends React.Component {
           onSwipedUp={this.onSwipeUpListener}
           onSwipe={this.onSwipeListener}>
           <StyledBoard>
-            {matrix.map((row, id) => <Row key={id} row={row} />)}
+            {matrix.map((row, id) => <Row key={uid(id)} row={row} />)}
           </StyledBoard>
         </Swipe>
       </BoardWrapper>
