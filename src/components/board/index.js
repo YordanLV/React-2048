@@ -1,16 +1,27 @@
-import React from 'react';
-import Swipe from 'react-swipe-component';
-import styled, { createGlobalStyle } from 'styled-components';
-import { connect } from 'react-redux'
-import { uid } from 'react-uid';
-import theme from '../../theme';
-import Row from '../row';
-import { PRESS_UP, PRESS_RIGHT, PRESS_DOWN, PRESS_LEFT } from '../../actionTypes';
-import { FadeInUp, TiltUp, TiltRight, TiltDown, TiltLeft } from '../../animations';
+import React from "react";
+import { Swipe } from "react-swipe-component";
+import styled, { createGlobalStyle } from "styled-components";
+import { connect } from "react-redux";
+import { uid } from "react-uid";
+import theme from "../../theme";
+import Row from "../row";
+import {
+  PRESS_UP,
+  PRESS_RIGHT,
+  PRESS_DOWN,
+  PRESS_LEFT
+} from "../../actionTypes";
+import {
+  FadeInUp,
+  TiltUp,
+  TiltRight,
+  TiltDown,
+  TiltLeft
+} from "../../animations";
 
 const { media, board } = theme;
 
-const body = document.querySelector('body');
+const body = document.querySelector("body");
 
 const BodyStyle = createGlobalStyle`
   body {
@@ -23,13 +34,13 @@ const BodyStyle = createGlobalStyle`
 const BoardWrapper = styled.div`
   margin: 0 auto;
   position: absolute;
-  top:50%;
-  left:50%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   height: ${board.size};
   width: ${board.size};
-  perspective: 40vw; 
-  animation: ${FadeInUp} 1s cubic-bezier(.58,.09,.82,.93);
+  perspective: 40vw;
+  animation: ${FadeInUp} 1s cubic-bezier(0.58, 0.09, 0.82, 0.93);
 
   @media (${media.md}) {
     height: ${board.sizeSm};
@@ -40,20 +51,20 @@ const BoardWrapper = styled.div`
 class Board extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { tilt: '' };
-    this.onSwipeLeftListener = this._onSwipeLeftListener.bind(this)
-    this.onSwipeRightListener = this._onSwipeRightListener.bind(this)
-    this.onSwipeDownListener = this._onSwipeUpListener.bind(this)
-    this.onSwipeUpListener = this._onSwipeDownListener.bind(this)
-    this.onSwipeListener = this._onSwipeListener.bind(this)
+    this.state = { tilt: "" };
+    this.onSwipeLeftListener = this._onSwipeLeftListener.bind(this);
+    this.onSwipeRightListener = this._onSwipeRightListener.bind(this);
+    this.onSwipeDownListener = this._onSwipeUpListener.bind(this);
+    this.onSwipeUpListener = this._onSwipeDownListener.bind(this);
+    this.onSwipeListener = this._onSwipeListener.bind(this);
   }
 
   componentDidMount() {
-    body.addEventListener('keydown', this.handleKeyDown.bind(this));
+    body.addEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
   componentWillUnmount() {
-    body.removeEventListener('keydown', this.handleKeyDown.bind(this));
+    body.removeEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
   handleKeyDown(event) {
@@ -78,8 +89,8 @@ class Board extends React.Component {
         break;
     }
   }
-  
-  // Mobile Swiping Functionality 
+
+  // Mobile Swiping Functionality
   _onSwipeUpListener() {
     this.setState({ tilt: TiltDown });
     this.props.dispatch({ type: PRESS_DOWN });
@@ -100,9 +111,7 @@ class Board extends React.Component {
     this.props.dispatch({ type: PRESS_LEFT });
   }
 
-  _onSwipeListener(e) {
-
-  }
+  _onSwipeListener(e) {}
 
   render() {
     const StyledBoard = styled.div`
@@ -113,7 +122,7 @@ class Board extends React.Component {
     const matrix = this.props.boardMatrix;
     return (
       <BoardWrapper>
-        <BodyStyle/>
+        <BodyStyle />
         <Swipe
           nodeName="div"
           mouseSwipe={false}
@@ -122,9 +131,12 @@ class Board extends React.Component {
           onSwipedRight={this.onSwipeRightListener}
           onSwipedDown={this.onSwipeDownListener}
           onSwipedUp={this.onSwipeUpListener}
-          onSwipe={this.onSwipeListener}>
+          onSwipe={this.onSwipeListener}
+        >
           <StyledBoard>
-            {matrix.map((row, id) => <Row key={uid(id)} row={row} />)}
+            {matrix.map((row, id) => (
+              <Row key={uid(id)} row={row} />
+            ))}
           </StyledBoard>
         </Swipe>
       </BoardWrapper>
@@ -132,5 +144,5 @@ class Board extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({ boardMatrix: state.board.boardMatrix })
+const mapStateToProps = state => ({ boardMatrix: state.board.boardMatrix });
 export default connect(mapStateToProps)(Board);
